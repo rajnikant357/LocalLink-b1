@@ -49,7 +49,7 @@ const App = () => {
             </div>
           )}
           <div className="pb-20 [@media(min-width:900px)]:pb-0">
-            <BrowserRouter basename={import.meta.env.MODE === 'production' ? '/locallink-beta-v1.0.0.0' : ''}>
+            <BrowserRouter basename={import.meta.env.MODE === 'production' ? '/LocalLink-b1' : ''}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/categories" element={<Categories />} />
