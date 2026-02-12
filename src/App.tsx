@@ -1,0 +1,89 @@
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import Home from "./pages/Home";
+import Categories from "./pages/Categories";
+import CategoryDetail from "./pages/CategoryDetail";
+import Providers from "./pages/Providers";
+import HowItWorks from "./pages/HowItWorks";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import FAQs from "./pages/FAQs";
+import HelpCenter from "./pages/HelpCenter";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import RegisterProvider from "./pages/RegisterProvider";
+import Pricing from "./pages/Pricing";
+import Auth from "./pages/Auth";
+import Dashboard from "./pages/Dashboard";
+import Notifications from "./pages/Notifications";
+import Messages from "./pages/Messages";
+import Settings from "./pages/Settings";
+import PaymentMethods from "./pages/PaymentMethods";
+import LearnMore from "./pages/LearnMore";
+import HurryModeDemo from "./pages/HurryModeDemo";
+import NotFound from "./pages/NotFound";
+import Chatbot from "./pages/Chatbot";
+import MyBookings from "./pages/MyBookings";
+import ChatbotButton from "@/components/ChatbotButton"; // Import the ChatbotButton component
+import BottomNavbar from "@/components/BottomNavbar";
+import { useLocation } from "react-router-dom";
+
+const queryClient = new QueryClient();
+
+const App = () => {
+  const location = typeof window !== "undefined" ? window.location : { pathname: "" };
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          {/* Show ChatbotButton for all pages in mobile view except /auth */}
+          {typeof window !== "undefined" && window.innerWidth < 768 && location.pathname !== "/auth" && (
+            <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 10 }}>
+              <ChatbotButton />
+            </div>
+          )}
+          <div className="pb-20 [@media(min-width:900px)]:pb-0">
+            <BrowserRouter basename={import.meta.env.MODE === 'production' ? '/locallink-beta-v1.0.0.0' : ''}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/category/:category" element={<CategoryDetail />} />
+                <Route path="/providers" element={<Providers />} />
+                <Route path="/how-it-works" element={<HowItWorks />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/faqs" element={<FAQs />} />
+                <Route path="/help-center" element={<HelpCenter />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/register-provider" element={<RegisterProvider />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/messages" element={<Messages />} />
+                <Route path="/payment-methods" element={<PaymentMethods />} />
+                <Route path="/learn-more" element={<LearnMore />} />
+                <Route path="/hurry-mode-demo" element={<HurryModeDemo />} />
+                <Route path="/chatbot" element={<Chatbot />} />
+                <Route path="/my-bookings" element={<MyBookings />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <BottomNavbar />
+            </BrowserRouter>
+          </div>
+      </AuthProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
+    );
+  };
+
+export default App;
