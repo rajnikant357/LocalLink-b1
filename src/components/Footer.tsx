@@ -145,8 +145,8 @@ const Footer = () => {
                   </li>
                   <li className="text-gray-300 min-w-[120px]">
                     <div className="italic">LocalLink Office,</div>
-                    <div>Main Road, Dadar,</div>
-                    <div>Ballia, Uttar Pradesh</div>
+                    <div>Bhelupur, Varanasi</div>
+                    <div>Uttar Pradesh</div>
                   </li>
                 </ul>
               </div>
